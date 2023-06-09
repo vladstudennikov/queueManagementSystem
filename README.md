@@ -1,5 +1,8 @@
 # queueManagementSystem_v3
 
+Master branch - old version of program
+Test-branch - new version of program with extended BL
+
 ![appdia drawio](https://github.com/vladstudennikov/queueManagementSystem_v3/assets/91913216/2cce6286-b8db-4fac-b2f9-f8549ce9a672)
 
 
