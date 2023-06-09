@@ -15,7 +15,7 @@ class EmailValidator(ValidatorModel):
         if re.fullmatch(pattern=emailregex, string=email):
             return True
         return False
-    
+        
 
 class NameValidator(ValidatorModel):
 
@@ -25,9 +25,39 @@ class NameValidator(ValidatorModel):
         if re.fullmatch(pattern=nameregex, string=name):
             return True
         return False
-    
+        
 
 class IDValidator(ValidatorModel):
 
     def validate(self, id: int) -> bool:
         return type(id) is int
+    
+
+validationsetup = {
+        "name": NameValidator,
+        "surname": NameValidator,
+        "email": EmailValidator,
+        "id": IDValidator
+    }
+    
+
+class ValuesValidator:
+
+    def validate(self, **args):
+        d = dict()
+
+        for i in args:
+            if i in validationsetup:
+                tmp = validationsetup[i]
+                d[i] = tmp.validate(self, args[i])
+        
+        return d
+
+
+if __name__ == '__main__':
+    v = ValuesValidator()
+    print(v.validate(
+        name="1",
+        surname="Test",
+        id=1
+    ))

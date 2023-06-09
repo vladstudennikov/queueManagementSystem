@@ -22,3 +22,7 @@ if __name__ == '__main__':
     a = Admin()
     print(list(a.select()))
 
+    Admin(
+        name="Test"
+    ).save()
+
