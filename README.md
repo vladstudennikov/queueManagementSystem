@@ -3,7 +3,7 @@
 Master branch - old version of program
 Test-branch - new version of program with extended BL
 
-![appdia drawio (1)](https://github.com/vladstudennikov/queueManagementSystem_v3/assets/91913216/b9203077-0224-4a30-a00b-3d3ba6fb1307)
+![appdia drawio (2)](https://github.com/vladstudennikov/queueManagementSystem_v3/assets/91913216/6ee54976-c1fa-4bc4-ba84-adcca934039e)
 
 
 Idea:
