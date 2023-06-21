@@ -31,4 +31,4 @@ class Workplace(BaseModel):
 
     
     def __str__(self):
-        return "Workplace №{id}{operator}".format(id=self.id, operator=(", operator: {name} {surname}".format(name=self.operator.name, surname=self.operator.surname) if self.operator != None else " (No operator)"))
+        return "Workplace №{id}{operator} ({state})".format(id=self.id, operator=(", operator: {name} {surname}".format(name=self.operator.name, surname=self.operator.surname) if self.operator != None else " (No operator)"), state=self.getstate())

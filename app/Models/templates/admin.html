@@ -2,7 +2,7 @@
 <html>
 <head>
 	<title>
-		Monitor
+		Admin
 	</title>
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
@@ -47,54 +47,12 @@
     					</div>
   					</div>
 				</div>
-
-				<!-- Template -->
-				<div class="container">
-  					<div class="row">
-    					<div class="col">
-      						<p class="h2">25</p>
-    					</div>
-    					
-    					<div class="col">
-      						<p class="h2">1</p>
-    					</div>
-  					</div>
-				</div>
-
-				<!-- Template -->
-				<div class="container">
-  					<div class="row">
-    					<div class="col">
-      						<p class="h2">26</p>
-    					</div>
-    					
-    					<div class="col">
-      						<p class="h2">2</p>
-    					</div>
-  					</div>
-				</div>
-
-				<div class="container">
-  					<div class="row">
-    					<div class="col">
-      						<p class="h2">5</p>
-    					</div>
-    					
-    					<div class="col">
-      						<p class="h2">3</p>
-    					</div>
-  					</div>
-				</div>
-
 			</div>
 
       <div class="col-lg-4 col-md-4 col-sm-12" id="admins-tab">
 
-        <div>
+        <div id="workplace_states">
           <p class="h3">Operator's states</p>
-          <p class="h5">Operator 1 - busy</p>
-          <p class="h5">Operator 2 - busy</p>
-          <p class="h5">Operator 3 - free</p>
         </div>
 
         <div>
@@ -121,19 +79,99 @@
 			url: "{{ url_for('addCustomer') }}",
 			data: {"add" : 1},
 			success: function(response) {
+
+			}
+		});
+	}
+
+	function getCustomers() {
+		$.ajax({
+			type: "POST",
+			url: "{{ url_for('getCustomers') }}",
+			data: {"get": 1},
+			success: function(response) {
+
 				$("#customers").empty()
 
-				for (let i in response.data) {
-					i++;
+				for (let i = 0; i < response.data.length; i++) {
 					$("#customers").append(
 						$("<p/>")
-							.text(i)
+							.text(response.data[i])
 							.addClass("h1")
+					);
+				}
+			}
+		})
+	}
+
+	function getWorkplaces() {
+		$.ajax({
+			type: "POST",
+			url: "{{ url_for('getWorkplaces') }}",
+			data: {"get": 1},
+			success: function(response) {
+				$("#operators_queue").empty();
+				$("#operators_queue").append(
+					`
+					<div class="container text-center">
+  						<div class="row">
+    						<div class="col">
+      							<p class="h3">Customer</p>
+    						</div>
+    					
+    						<div class="col">
+      							<p class="h3">Operator</p>
+    						</div>
+  						</div>
+					</div>
+					`
+				);
+
+				let keys = Object.keys(response);
+				for (let i = 0; i < keys.length; i++) {
+					$("#operators_queue").append(
+					`
+					<div class="container text-center">
+  						<div class="row">
+    						<div class="col">
+      							<p class="h3">${response[keys[i]]}</p>
+    						</div>
+    					
+    						<div class="col">
+      							<p class="h3">${keys[i]}</p>
+    						</div>
+  						</div>
+					</div>
+					`
 					);
 				}
 			}
 		});
 	}
+
+	function getStates() {
+		$.ajax({
+			type: "GET",
+			url: "{{ url_for('getStates') }}",
+			data: {"get": 1},
+			success: function(response) {
+				$("#workplace_states").empty();
+				$("#workplace_states").append(`<p class="h3">Operator's states</p>`)
+				let keys = Object.keys(response);
+
+				for (let i = 0; i < keys.length; i++) {
+					$("#workplace_states").append(`<p class="h5">${keys[i]} - ${response[keys[i]]}</p>`);
+				}
+			}
+		});
+	}
+	
+	setInterval(() => {
+		getWorkplaces();
+		getCustomers();
+		getStates()
+	}, 2 * Math.pow(10, 3));
+
 </script>
 
 </html>

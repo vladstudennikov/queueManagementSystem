@@ -28,7 +28,6 @@ class QueueService():
                                   
         for i in self.__workplaces:
             if self.__workplaces[i] is None and i.getstate() != "busy":
-                i.setstate("busy")
                 self.__workplaces[i] = customer
                 return i.id
         return -1
@@ -44,10 +43,10 @@ class QueueService():
         if c in self.__customerList or c in self.__workplaces.values():
             raise Exception("This customer is already in the queue")
 
-        """a = self.__attachCustomerToWorkplace(c)
+        a = self.__attachCustomerToWorkplace(c)
 
         if a != -1:
-            return f"User was attached to a workplace {a}"""
+            return f"User was attached to a workplace {a}"
         
         self.__customerList.append(c)
         return "User was added to queue"
@@ -71,18 +70,73 @@ class QueueService():
         for i in self.__workplaces:
             if i.id == workplaceid:
                 if i.getstate() == state:
-                    return f"State is already {i.getstate()}"
-                else:
-                    i.setstate(state)
-                    return f"State was changed to {i.getstate()}"
+                    return f"State is already {state}"
+
+                if i.getstate() == "busy" and state == "free":
+                    
+                    if self.__workplaces[i] == None and len(self.__customerList) > 0:
+                        self.__workplaces[i] = self.__customerList[0]
+                        self.__customerList.pop(0)
+                        i.setstate(state)
+                        return "State was changed and client was assigned"
+
+                    if self.__workplaces[i] != None:
+                        self.__workplaces[i] = None
+                        print(len(self.__customerList))
+                        if len(self.__customerList) > 0:
+                            self.__workplaces[i] = self.__customerList[0]
+                            self.__customerList.pop(0)
+                        i.setstate(state)
+                        return "State was changed and client was assigned"
+                
+                i.setstate(state)
+                return "state was changed"
         
         raise WorkplaceWasNotFoundException()
 
 
 if __name__ == "__main__":
     q = QueueService()
-    q.changeWorkplaceState(1, "free")
     q.addCustomer(1)
     q.addCustomer(2)
-    print(q.getListOfCustomers())
-    print(q.getWorkplaces())
+    q.addCustomer(3)
+    q.addCustomer(4)
+    q.addCustomer(5)
+    print("Guys are free and were added new customers")
+    for k, v in q.getWorkplaces().items():
+        print(f"{k} - {v}")
+    for i in q.getListOfCustomers():
+        print(i)
+
+    print(q.changeWorkplaceState(1, "free"))
+    print("\nWas changed state of operator 1 to busy")
+    for k, v in q.getWorkplaces().items():
+        print(f"{k} - {v}")
+    for i in q.getListOfCustomers():
+        print(i)
+
+    print(q.changeWorkplaceState(1, "free"))
+    print("\nWas changed state and now we are ready to serve new customers")
+    for k, v in q.getWorkplaces().items():
+        print(f"{k} - {v}")
+    for i in q.getListOfCustomers():
+        print(i)
+
+    q.changeWorkplaceState(2, "free")
+    for k, v in q.getWorkplaces().items():
+        print(f"{k} - {v}")
+    for i in q.getListOfCustomers():
+        print(i)
+
+    print()
+    for k, v in q.getWorkplaces().items():
+        print(f"{k} - {v}")
+    for i in q.getListOfCustomers():
+        print(i)
+
+    q.changeWorkplaceState(2, "free")
+    print()
+    for k, v in q.getWorkplaces().items():
+        print(f"{k} - {v}")
+    for i in q.getListOfCustomers():
+        print(i)

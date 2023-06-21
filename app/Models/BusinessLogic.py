@@ -66,7 +66,8 @@ class BusinessLogic():
 
     def changeWorkplaceState(self, workplace: int, state):
         self.queue.changeWorkplaceState(workplace, state)
-
+        return 1
+        
 
     def getWorkplaceOperator(self, workplaceid: int):
         if type(workplaceid) is not int:
@@ -87,5 +88,29 @@ class BusinessLogic():
             if i.id == workplaceid:
                 workplace = i
         return workplace
+    
+
+if __name__ == "__main__":
+    l = BusinessLogic()
+    l.addCustomer()
+    l.addCustomer()
+    l.addCustomer()
+    l.addCustomer()
+    for k, v in l.getWorkplaces().items():
+        print(f"{k} - {v}")
+    for i in l.getCustomers():
+        print(i)
+
+    l.changeWorkplaceState(1, "free")
+    for k, v in l.getWorkplaces().items():
+        print(f"{k} - {v}")
+    for i in l.getCustomers():
+        print(i)
+
+    l.changeWorkplaceState(2, "free")
+    for k, v in l.getWorkplaces().items():
+        print(f"{k} - {v}")
+    for i in l.getCustomers():
+        print(i)
 
 

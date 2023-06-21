@@ -7,6 +7,7 @@ from Workplace import Workplace
 from Monitor import Monitor
 from QueueServices import QueueService
 from BusinessLogic import BusinessLogic
+import json
 
 
 app = Flask(__name__)
@@ -36,7 +37,7 @@ def operator(number):
             id=number,
             name=operator.name,
             surname=operator.surname,
-            state=logic.getWorkplaceById(number))
+            state=logic.getWorkplaceById(number).getstate())
 
 
 @app.route('/admin/<int:number>', methods=["GET", "POST"])
@@ -97,9 +98,32 @@ def customersJson():
     return jsonify(l)
 
 
+def workplacesJson():
+    global logic 
+    l = logic.getWorkplaces()
+    res = dict()
+
+    for key, value in l.items():
+        if value is not None:
+            res[key.id] = value.id
+
+    return jsonify(res)
+
+
+def workplaceStatesJson():
+    global logic
+    l = logic.getWorkplaces().keys()
+    print(l)
+
+    res = dict()
+    for i in l:
+        res[f"Operator {i.id}"] = i.getstate()
+    return jsonify(res)
+
+
 @app.route('/addCustomer', methods=["POST"])
 def addCustomer():
-    global appData
+    global logic
     if request.method == "POST":
         logic.addCustomer()
         return customersJson()
@@ -109,6 +133,33 @@ def addCustomer():
 def getCustomers(): 
     if request.method == "POST":
         return customersJson()
+    
+
+@app.route('/getWorkplaces', methods=["POST"])
+def getWorkplaces(): 
+    if request.method == "POST":
+        return workplacesJson()
+    
+
+@app.route('/setState', methods=["GET"])
+def setState():
+    global logic
+    if request.method == "GET":
+        id = request.args.get('id')
+        state = request.args.get('status')
+        logic.changeWorkplaceState(
+            workplace=int(id),
+            state=state
+        )
+        
+        return jsonify("success", 204)
+    
+
+@app.route('/getStates', methods=["GET"])
+def getStates():
+    global logic
+    if request.method == "GET":
+        return workplaceStatesJson()
 
 
 if __name__ == '__main__':
