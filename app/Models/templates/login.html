@@ -16,7 +16,7 @@
 		  <a class="navbar-brand" href="#">Queue management system</a>
 
 			<span class="navbar-text">
-			  Tue, 15:15
+			  Time
 			</span>
 		</div>
   </nav>
@@ -35,19 +35,6 @@
     </form>
 </body>
 
-<script type="text/javascript">
-  function validateFields() {
-    if ($("#user").val() == "") {
-      $("#user").css("background-color", "red");
-    }
-    if ($("#password").val() == "") {
-      $("#password").css("background-color", "red");;
-    }
-  }
-
-  $("#button").click(function(){
-    validateFields();
-  });
-
+<script type="module" src="{{url_for('static', filename='loginscripts.js')}}">
 </script>
 </html>

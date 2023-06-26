@@ -11,9 +11,6 @@ body{
 	color: white;
 }
 
-#main-part .row div{
-}
-
 #customers_queue{
 	background-color: #C3DBFF;
 	text-align: center;
@@ -90,6 +87,13 @@ body{
 	margin-bottom: 10px;
 	padding-top: 10px;
 	padding-bottom: 10px;
+	transition: 0.3s;
+}
+
+#admins-tab div:nth-child(2) button:hover{
+	width: 45%;
+	padding-top: 12px;
+	padding-bottom: 12px;
 }
 
 #admins-tab div:nth-child(2) button .h6{

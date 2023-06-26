@@ -56,7 +56,7 @@
         </div>
 
         <div>
-          <button type="button" onclick="addCustomer()">
+          <button type="button" id="add_cust">
               <p class="h6">Add customer</p>
             </button>
 
@@ -71,107 +71,7 @@
 
 </body>
 
-<script>
-
-	function addCustomer(){
-		$.ajax({
-			type: "POST",
-			url: "{{ url_for('addCustomer') }}",
-			data: {"add" : 1},
-			success: function(response) {
-
-			}
-		});
-	}
-
-	function getCustomers() {
-		$.ajax({
-			type: "POST",
-			url: "{{ url_for('getCustomers') }}",
-			data: {"get": 1},
-			success: function(response) {
-
-				$("#customers").empty()
-
-				for (let i = 0; i < response.data.length; i++) {
-					$("#customers").append(
-						$("<p/>")
-							.text(response.data[i])
-							.addClass("h1")
-					);
-				}
-			}
-		})
-	}
-
-	function getWorkplaces() {
-		$.ajax({
-			type: "POST",
-			url: "{{ url_for('getWorkplaces') }}",
-			data: {"get": 1},
-			success: function(response) {
-				$("#operators_queue").empty();
-				$("#operators_queue").append(
-					`
-					<div class="container text-center">
-  						<div class="row">
-    						<div class="col">
-      							<p class="h3">Customer</p>
-    						</div>
-    					
-    						<div class="col">
-      							<p class="h3">Operator</p>
-    						</div>
-  						</div>
-					</div>
-					`
-				);
-
-				let keys = Object.keys(response);
-				for (let i = 0; i < keys.length; i++) {
-					$("#operators_queue").append(
-					`
-					<div class="container text-center">
-  						<div class="row">
-    						<div class="col">
-      							<p class="h3">${response[keys[i]]}</p>
-    						</div>
-    					
-    						<div class="col">
-      							<p class="h3">${keys[i]}</p>
-    						</div>
-  						</div>
-					</div>
-					`
-					);
-				}
-			}
-		});
-	}
-
-	function getStates() {
-		$.ajax({
-			type: "GET",
-			url: "{{ url_for('getStates') }}",
-			data: {"get": 1},
-			success: function(response) {
-				$("#workplace_states").empty();
-				$("#workplace_states").append(`<p class="h3">Operator's states</p>`)
-				let keys = Object.keys(response);
-
-				for (let i = 0; i < keys.length; i++) {
-					$("#workplace_states").append(`<p class="h5">${keys[i]} - ${response[keys[i]]}</p>`);
-				}
-			}
-		});
-	}
-	
-	setInterval(() => {
-		getWorkplaces();
-		getCustomers();
-		getStates()
-	}, 2 * Math.pow(10, 3));
-
+<script type="module" src="{{url_for('static', filename='adminScripts.js')}}">
 </script>
 
 </html>

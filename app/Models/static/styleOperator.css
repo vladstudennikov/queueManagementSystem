@@ -98,12 +98,56 @@ body{
 	text-align: center;
 }
 
-#operators-tab .row .col:nth-child(3) #free-btn p{
+#operators-tab .row .col:nth-child(3) #free-btn{
 	color: #588E57;
+	font-family: sans-serif;
+	font-weight: 500;
 }
 
-#operators-tab .row .col:nth-child(3) #busy-btn p{
+#operators-tab .row .col:nth-child(3) #busy-btn{
 	color: #D24B4B;
+	font-family: sans-serif;
+	font-weight: 500;
+}
+
+#operators-tab .row .col:nth-child(3) #free-btn:before {
+	content: "";
+	position: absolute;
+	left: 0;
+	width: 100%;
+	height: 0%;
+	z-index: -1;
+}
+
+#operators-tab .row .col:nth-child(3) #free-btn:hover {
+	color: white;
+	background: #588E57;
+	transition: 0.75s;
+}
+
+#operators-tab .row .col:nth-child(3) #free-btn:hover:before {
+	top: 0;
+	height: 100%;
+}
+
+#operators-tab .row .col:nth-child(3) #busy-btn:before {
+	content: "";
+	position: absolute;
+	left: 0;
+	width: 100%;
+	height: 0%;
+	z-index: -1;
+}
+
+#operators-tab .row .col:nth-child(3) #busy-btn:hover {
+	color: white;
+	background: #D24B4B;
+	transition: 0.75s;
+}
+
+#operators-tab .row .col:nth-child(3) #busy-btn:hover:before {
+	top: 0;
+	height: 100%;
 }
 
 @media screen and (max-width: 767px){
