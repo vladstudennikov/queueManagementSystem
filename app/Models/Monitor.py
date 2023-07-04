@@ -1,6 +1,6 @@
-from setup import settings
+from .setup import settings
 from peewee import *
-from Model import BaseModel
+from .Model import BaseModel
 
 
 class Monitor(BaseModel):

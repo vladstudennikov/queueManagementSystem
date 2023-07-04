@@ -1,5 +1,5 @@
 settings = {
-    "db_link": "../../appdata.db",
+    "db_link": "appdata.db",
     "operators_table": "Operators",
     "workplaces_table": "Workplaces",
     "admins_table": "Admins",

@@ -1,0 +1,82 @@
+body{
+	padding: 0;
+	margin: 0;
+}
+
+.navbar{
+	background-color: #87B6FF;
+}
+
+.navbar span, .navbar .navbar-brand, #operators_queue .container:not(:first-child) .row p{
+	color: white;
+}
+
+#customers_queue{
+	background-color: #C3DBFF;
+	text-align: center;
+	padding-top: 40px;
+}
+
+#customers{
+	margin-top: 30px;
+}
+
+#operators_queue, #customers_queue{
+	height: 100vh;
+}
+
+#operators_queue div{
+	margin: 0 auto;
+}
+
+#operators_queue .container:nth-child(1){
+	margin-top: 40px;
+}
+
+#operators_queue .container .row{
+	width: 50%;
+}
+
+#operators_queue .container:not(:first-child){
+	margin-top: 10px;
+}
+
+#operators_queue .container:not(:first-child) .row{
+	padding: 20px 10px;
+	background-color: #87B6FF;
+	border-radius: 25px;
+}
+
+#operators_queue .container .row .col:nth-child(1) p{
+	text-align: left;
+}
+
+#operators_queue .container .row .col:nth-child(2) p{
+	text-align: right;
+}
+
+@media screen and (max-width: 767px){
+	#operators_queue .container:first-child p{
+		font-size: 15px;
+	}
+
+	#operators_queue .container .row{
+		width: 80%;
+	}
+}
+
+@media screen and (max-height: 600px){
+	#customers_queue{
+		height: auto;
+		padding-top: 30px;
+		padding-bottom: 30px;
+	}
+
+	#operators_queue{
+		height: auto;
+		padding-top: 30px;
+		padding-bottom: 30px;
+	}
+}
+
+

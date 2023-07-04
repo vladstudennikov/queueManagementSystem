@@ -1,7 +1,7 @@
 from peewee import *
-from Operator import Operator
-from Model import BaseModel
-from setup import settings
+from .Operator import Operator
+from .Model import BaseModel
+from .setup import settings
 
 
 class WorkplaceStateException(Exception):
@@ -32,3 +32,9 @@ class Workplace(BaseModel):
     
     def __str__(self):
         return "Workplace №{id}{operator} ({state})".format(id=self.id, operator=(", operator: {name} {surname}".format(name=self.operator.name, surname=self.operator.surname) if self.operator != None else " (No operator)"), state=self.getstate())
+    
+
+if __name__ == '__main__':
+    Workplace(
+        operator=1
+    ).save()

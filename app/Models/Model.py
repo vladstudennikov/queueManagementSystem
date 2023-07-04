@@ -1,5 +1,5 @@
 from peewee import *
-from setup import settings
+from .setup import settings
 from abc import ABC, abstractmethod, ABCMeta
 
 

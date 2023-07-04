@@ -1,6 +1,6 @@
 from peewee import *
-from Model import BaseModel
-from setup import settings
+from .Model import BaseModel
+from .setup import settings
 
 
 class Admin(BaseModel):

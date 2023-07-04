@@ -1,9 +1,9 @@
 from peewee import *
-from Model import BaseModel
-from Operator import Operator
-from Admin import Admin
-from Monitor import Monitor
-from setup import settings
+from .Model import BaseModel
+from .Operator import Operator
+from .Admin import Admin
+from .Monitor import Monitor
+from .setup import settings
 
 
 class OperatorloginData(BaseModel):
