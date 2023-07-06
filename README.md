@@ -1,4 +1,5 @@
-# Queue management system
+# $${\color{lightblue}Queue management system}$$
+Below would be described how to use this app and how it could be changed and modified.
 
 ## 1. The purpose of the application:
 
