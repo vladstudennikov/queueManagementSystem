@@ -16,7 +16,7 @@ This application was developed for managing queues in business establishments an
 3. Usertypes in the app: operator, monitor, admin, superuser. Data about each user, their logins and passwords are stored in the database.
 
 4. How queue management system works from client`s side:
-When customer come to the establishment, he should enter the queue, which could be done with the help of administrator. Each visitor in the queue has a number, we can say that the visitor in the queue is represented by this particular number. Lets call this number as the position in the queue. Suppose after entering the queue customer`s position is 6.
+When customer come to the establishment, he should enter the queue, which could be done with the help of administrator. Each visitor in the queue has a number, we can say that the visitor in the queue is represented by this particular number. Lets call this number as the position in the queue. Suppose after entering the queue customers position is 6.
 After the visitor has queued, his number will appear in the queue shown on a screen.
 
 ![image](https://github.com/vladstudennikov/queueManagementSystem/assets/91913216/67be4a7e-358c-46a5-aa42-adf57a26fb02)
@@ -48,6 +48,7 @@ Admin can see the queue, operators and customers attached to them, operators sta
 
 8. Workplace page:
 Page of operator is shown below.
+
 ![image](https://github.com/vladstudennikov/queueManagementSystem/assets/91913216/a9b81eaa-68c5-4514-a117-aeae3fb1b51f)
 
 We can see, that on the page some brief information about operator, queue and operators with attached customers are shown. 
