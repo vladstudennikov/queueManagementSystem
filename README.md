@@ -13,7 +13,8 @@ This application was developed for managing queues in business establishments an
 - Monitor - electronic device for showing current state of the queue (customers who are waiting to be served, operators and customers who are served by each of them);
 - Superuser - person who can add data to a database;
 
-## 3. Usertypes in the app: operator, monitor, admin, superuser. Data about each user, their logins and passwords are stored in the database.
+## 3. Usertypes in the app: 
+Usertypes: operator, monitor, admin, superuser. Data about each user, their logins and passwords are stored in the database.
 
 ## 4. How queue management system works from client`s side:
 When customer come to the establishment, he should enter the queue, which could be done with the help of administrator. Each visitor in the queue has a number, we can say that the visitor in the queue is represented by this particular number. Lets call this number as the position in the queue. Suppose after entering the queue customers position is 6.
