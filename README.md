@@ -58,8 +58,6 @@ As you can see, there are 2 buttons for changing state.
 9. Working with a database:
 You can add new operators, monitors and admins and their data for logging in to this app. For this enter the system with the superuser login data and you will see next page:
 
-![image](https://github.com/vladstudennikov/queueManagementSystem/assets/91913216/932e6632-305e-4a4e-a859-d4440bc15656)
-
 ![image](https://github.com/vladstudennikov/queueManagementSystem/assets/91913216/1590dbfa-ea3c-476b-b47d-713ff1f9313e)
 
 Adding of new data and its deletion is quite simple and clear, so it would not be disscussed. But to configure the application, you need to remember that workplace has a state, not the operator, so if you want to add an operator to the system, you need to add his data and assign it to the workplace. If you would simply add operator`s data, he will not be shown in the system and you will not have an ability to enter his page.
