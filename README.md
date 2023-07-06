@@ -16,13 +16,13 @@ This application was developed for managing queues in business establishments an
 3. Usertypes in the app: operator, monitor, admin, superuser. Data about each user, their logins and passwords are stored in the database.
 
 4. How queue management system works from client`s side:
-When customer come to the establishment, he should enter the queue, which could be done with the help of administrator. Each visitor in the queue has a number, we can say that the visitor in the queue is represented by this particular number. Let's call this number as the position in the queue. Suppose after entering the queue customer`s position is 6.
+When customer come to the establishment, he should enter the queue, which could be done with the help of administrator. Each visitor in the queue has a number, we can say that the visitor in the queue is represented by this particular number. Lets call this number as the position in the queue. Suppose after entering the queue customer`s position is 6.
 After the visitor has queued, his number will appear in the queue shown on a screen.
 
 ![image](https://github.com/vladstudennikov/queueManagementSystem/assets/91913216/67be4a7e-358c-46a5-aa42-adf57a26fb02)
 
-When a customer is ready to be served, his number will appear in the center of a screen with the workplace`s id and would disappear from the queue. Customer should come to the workplace where he can be served.
-When customer is served, his id and workplace`s id would disappear:
+When a customer is ready to be served, his number will appear in the center of a screen with the workplaces id and would disappear from the queue. Customer should come to the workplace where he can be served.
+When customer is served, his id and workplaces id would disappear:
 
 ![image](https://github.com/vladstudennikov/queueManagementSystem/assets/91913216/d81519d5-8a64-495f-a405-066b6d018680)
 
@@ -34,7 +34,7 @@ To use an app user should enter the system firstly. A start screen of the app is
 After entering login and password user would be redirected to a necessary page. Note that if you logg in once, you will not have an access to other pages of the app and will see a page with error message.
 
 5. Monitor page:
-Monitor page was already shown in paragraph 3. In the right part of the monitor queue is shown, in the left part of a monitor operator`s with customers that could be served by them are shown.
+Monitor page was already shown in paragraph 3. In the right part of the monitor queue is shown, in the left part of a monitor operators with customers that could be served by them are shown.
 Monitor:
 
 ![image](https://github.com/vladstudennikov/queueManagementSystem/assets/91913216/44a49b5e-fc64-47d7-b5bc-b52bc7cf2609)
@@ -44,7 +44,7 @@ Page for administrator is shown below:
 
 ![image](https://github.com/vladstudennikov/queueManagementSystem/assets/91913216/db259ceb-88dd-486f-a38b-b997141260cc)
 
-Admin can see the queue, operators and customers attached to them, operator`s states (states would be disscussed in more details later) and can add customers by pressing a button. Button "Show tickets" is now does not have any functionality, as function for printing tickets was not added yet.
+Admin can see the queue, operators and customers attached to them, operators states (states would be disscussed in more details later) and can add customers by pressing a button. Button "Show tickets" is now does not have any functionality, as function for printing tickets was not added yet.
 
 8. Workplace page:
 Page of operator is shown below.
