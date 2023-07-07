@@ -13,12 +13,12 @@ Below would be described how to use this app and how it could be changed and mod
 This application was developed for managing queues in business establishments and could help to increase productivity of work. Lately it would be disscussed in more details how queue controlling could help businesses.
 Application consist of 2 independent parts: queue management system component, which could be used to implement different queue management system (see paragraph 4 - queue management sysytem API), and web-app which uses this API.
 
-## 1. Used technologies
+## Used technologies
 - SQLite database;
 - ORM: peewee;
 - Flask (Flask Admin, Flask Login, WTForms, sessions);
 
-## 2. Installation
+## Installation
 
 - Download app as an archive;
 - Unpack archive;
@@ -54,7 +54,7 @@ if __name__ == '__main__':
 
 ```
 
-## 3. General information
+## General information
 
 ### Used terminology:
 - Customer - a person who should be served by a business establishment;
@@ -118,7 +118,7 @@ Adding of new data and its deletion is quite simple and clear, so it would not b
 Why we have separated workplaces and operators: different operators can work at different workplaces, for example, different operators can work at one workplace in different shifts, so it is necessary to be able to configure the workplace.
 If you want to add login data, you should remember that passwords itself are not stored in the database to protect login data of the users, so users should remember their passwords. Password could be changed by superuser if user has forgotten it.
 
-## 4. Queue management system API
+## Queue management system API
 
 App may be divided into 3 parts:
 - Models;
