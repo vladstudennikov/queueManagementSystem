@@ -31,6 +31,16 @@ cd ../..
 py app.py
 ```
 
+- Now you can open browser and type 127.0.0.1:5000/login to open web-application
+- To use app in local network type server ip-adress in the app.py:
+
+```python
+
+if __name__ == '__main__':
+  app.run(host="<your_ip_adress>")
+
+```
+
 ## 2. General information:
 
 ### Used terminology:
