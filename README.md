@@ -135,26 +135,26 @@ Business logic incldes 3 files:
 #### Models:
 
 Models were written using peewee ORM, but you can create your own models without changing other parts of the app.
-To create own models, they should be inherited from AbstractModel class. This is an abstract class where defined all method that should contain a Model class. If custom models would not be inherited from AbstractClass, then it would be raised Exception and app would not work.
-Path to a database and tablenames from where Models get data are written in file "setup.py". You can easily create own database and set link to it in this file.
+To create own models, they should be inherited from `AbstractModel` class. This is an abstract class where defined all method that should contain a Model class. If custom models would not be inherited from AbstractClass, then it would be raised Exception and app would not work.
+Path to a database and tablenames from where Models get data are written in file `"setup.py"`. You can easily create own database and set link to it in this file.
 
 #### QueueServices:
 
-In QueueServices you can find all necessary method to work with queue. 
+In `QueueServices` you can find all necessary method to work with queue. 
 It consist of list of customers (it is actually a queue) and list of workspaces, to each workplace attached a customer.
 
 #### ModelsLogic:
 
-ModelsLogic is needed to check data before its adding. Actually classes from this file are not used in this particular program.
-In this file you can find 2 abstract classes: ModelAdder and ModelRemover, each class for adding data or its deletion should be inherited from those classes.
-In this file you can find class PeeweeModelAdder, it is needed to validate data before its adding to a database. Class for deleting objects from a database could be also implemented.
+`ModelsLogic` is needed to check data before its adding. Actually classes from this file are not used in this particular program.
+In this file you can find 2 abstract classes: `ModelAdder` and `ModelRemover`, each class for adding data or its deletion should be inherited from those classes.
+In this file you can find class `PeeweeModelAdder`, it is needed to validate data before its adding to a database. Class for deleting objects from a database could be also implemented.
 
 #### Validators:
 
-In ModelsLogic data validation is used, it is needed to check correctness of the data. 
+In `ModelsLogic` data validation is used, it is needed to check correctness of the data. 
 All validators should be inherited from `ValidatorModel` class.
-There are several validators implemented: validator for email, name, surname and id. To validate all values from a particular list ValuesVaidator class is used. It is needed to valuidate data from a whole model, not just one field. 
-Own validation: To implement yout own data validation classes, they need to be inherited from ValidatorModel class. Also name of the value that is validated by written class and the classname itself should be added to `validationsetup`.
+There are several validators implemented: validator for email, name, surname and id. To validate all values from a particular list `ValuesVaidator` class is used. It is needed to valuidate data from a whole model, not just one field. 
+`Own validation`: To implement yout own data validation classes, they need to be inherited from ValidatorModel class. Also name of the value that is validated by written class and the classname itself should be added to `validationsetup`.
 
 #### LoginController:
 
@@ -162,4 +162,4 @@ The task of this class - to get data about particular user from login and passwo
 
 #### Facade:
 
-All methods from all classes described above are added to 1 class - BusinessLogic. This class is needed to make it simpler to work with logic of the app on its upper layers.
+All methods from all classes described above are added to 1 class - `BusinessLogic`. This class is needed to make it simpler to work with logic of the app on its upper layers.
