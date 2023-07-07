@@ -1,11 +1,24 @@
 # $${\color{lightblue}Queue \space management \space system}$$
 Below would be described how to use this app and how it could be changed and modified.
 
-## The purpose of the application:
+## Table of contents
+* [The purpose of the application](#the-purpose-of-the-application)
+* [Technologies](#used-technologies)
+* [Installation](#installation)
+* [General information](#general-information)
+* [API](#queue-management-system-api)
+
+## The purpose of the application
 
 This application was developed for managing queues in business establishments and could help to increase productivity of work. Lately it would be disscussed in more details how queue controlling could help businesses.
+Application consist of 2 independent parts: queue management system component, which could be used to implement different queue management system (see paragraph 4 - queue management sysytem API), and web-app which uses this API.
 
-## 1. Installation:
+## 1. Used technologies
+- SQLite database;
+- ORM: peewee;
+- Flask (Flask Admin, Flask Login, WTForms, sessions);
+
+## 2. Installation
 
 - Download app as an archive;
 - Unpack archive;
@@ -37,11 +50,11 @@ py app.py
 ```python
 
 if __name__ == '__main__':
-  app.run(host="<your_ip_adress>")
+  app.run(host = "<your_ip_adress>")
 
 ```
 
-## 2. General information:
+## 3. General information
 
 ### Used terminology:
 - Customer - a person who should be served by a business establishment;
@@ -105,3 +118,48 @@ Adding of new data and its deletion is quite simple and clear, so it would not b
 Why we have separated workplaces and operators: different operators can work at different workplaces, for example, different operators can work at one workplace in different shifts, so it is necessary to be able to configure the workplace.
 If you want to add login data, you should remember that passwords itself are not stored in the database to protect login data of the users, so users should remember their passwords. Password could be changed by superuser if user has forgotten it.
 
+## 4. Queue management system API
+
+App may be divided into 3 parts:
+- Models;
+- Business logic;
+- Web-app;
+
+Models are stored in "Models" folder (app/Models). 
+Business logic incldes 3 files:
+- QueueServices - control of queue;
+- LoginController - class for getting userdata by login and password;
+- Models logic - set of classes for adding and deleting models.
+- Validators - classes for data validation.
+
+#### Models:
+
+Models were written using peewee ORM, but you can create your own models without changing other parts of the app.
+To create own models, they should be inherited from AbstractModel class. This is an abstract class where defined all method that should contain a Model class. If custom models would not be inherited from AbstractClass, then it would be raised Exception and app would not work.
+Path to a database and tablenames from where Models get data are written in file "setup.py". You can easily create own database and set link to it in this file.
+
+#### QueueServices:
+
+In QueueServices you can find all necessary method to work with queue. 
+It consist of list of customers (it is actually a queue) and list of workspaces, to each workplace attached a customer.
+
+#### ModelsLogic:
+
+ModelsLogic is needed to check data before its adding. Actually classes from this file are not used in this particular program.
+In this file you can find 2 abstract classes: ModelAdder and ModelRemover, each class for adding data or its deletion should be inherited from those classes.
+In this file you can find class PeeweeModelAdder, it is needed to validate data before its adding to a database. Class for deleting objects from a database could be also implemented.
+
+#### Validators:
+
+In ModelsLogic data validation is used, it is needed to check correctness of the data. 
+All validators should be inherited from `ValidatorModel` class.
+There are several validators implemented: validator for email, name, surname and id. To validate all values from a particular list ValuesVaidator class is used. It is needed to valuidate data from a whole model, not just one field. 
+Own validation: To implement yout own data validation classes, they need to be inherited from ValidatorModel class. Also name of the value that is validated by written class and the classname itself should be added to `validationsetup`.
+
+#### LoginController:
+
+The task of this class - to get data about particular user from login and password.
+
+#### Facade:
+
+All methods from all classes described above are added to 1 class - BusinessLogic. This class is needed to make it simpler to work with logic of the app on its upper layers.
