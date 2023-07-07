@@ -1,9 +1,37 @@
 # $${\color{lightblue}Queue \space management \space system}$$
 Below would be described how to use this app and how it could be changed and modified.
 
-### The purpose of the application:
+## The purpose of the application:
 
 This application was developed for managing queues in business establishments and could help to increase productivity of work. Lately it would be disscussed in more details how queue controlling could help businesses.
+
+## 1. Installation:
+
+- Download app as an archive;
+- Unpack archive;
+- Unpack "venv" forlder - it contains all necessary libraries for launching the app;
+- Open console;
+- Go to the project folder;
+- Activate virtual environment:
+
+```bash
+cd venv/Scripts
+activate
+```
+
+- Go back to the project folder:
+
+```bash
+cd ../..
+```
+
+- Launch app:
+
+```bash
+py app.py
+```
+
+## 2. General information:
 
 ### Used terminology:
 - Customer - a person who should be served by a business establishment;
