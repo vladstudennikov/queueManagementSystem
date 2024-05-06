@@ -6,17 +6,19 @@ Below would be described how to use this app and how it could be changed and mod
 * [Technologies](#used-technologies)
 * [Installation](#installation)
 * [General information](#general-information)
-* [API](#queue-management-system-api)
+* [Detailed description](#detailed-description)
 
 ## The purpose of the application
 
 This application was developed for managing queues in business establishments and could help to increase productivity of work. Lately it would be disscussed in more details how queue controlling could help businesses.
 Application consist of 2 independent parts: queue management system component, which could be used to implement different queue management system (see paragraph 4 - queue management sysytem API), and web-app which uses this API.
 
-## Used technologies
-- SQLite database;
+## Technologies
+- Python;
 - ORM: peewee;
-- Flask (Flask Admin, Flask Login, WTForms, sessions);
+- HTML, CSS, JS;
+- JQuery;
+- Flask (with Flask Login and Flask Admin);
 
 ## Installation
 
@@ -56,7 +58,7 @@ if __name__ == '__main__':
 
 ## General information
 
-### Used terminology:
+### Terminology:
 - Customer - a person who should be served by a business establishment;
 - Serve a customer - providing a product or service that the customer would like to receive;
 - Operator - company representative who can serve a customer;
@@ -65,8 +67,8 @@ if __name__ == '__main__':
 - Monitor - electronic device for showing current state of the queue (customers who are waiting to be served, operators and customers who are served by each of them);
 - Superuser - person who can add data to a database;
 
-### Usertypes in the app: 
-Usertypes: operator, monitor, admin, superuser. Data about each user, their logins and passwords are stored in the database.
+### Usertypes: 
+The app provides separate functionality for several types of users: operators, admins and superusers. Admins can add new customers to the queue, operators can serve them and superusers can set up the whole system. 
 
 ### How queue management system works from client`s side:
 When customer come to the establishment, he should enter the queue, which could be done with the help of administrator. Each visitor in the queue has a number, we can say that the visitor in the queue is represented by this particular number. Lets call this number as the position in the queue. Suppose after entering the queue customers position is 6.
@@ -118,48 +120,44 @@ Adding of new data and its deletion is quite simple and clear, so it would not b
 Why we have separated workplaces and operators: different operators can work at different workplaces, for example, different operators can work at one workplace in different shifts, so it is necessary to be able to configure the workplace.
 If you want to add login data, you should remember that passwords itself are not stored in the database to protect login data of the users, so users should remember their passwords. Password could be changed by superuser if user has forgotten it.
 
-## Queue management system API
+## Detailed description
 
 App may be divided into 3 parts:
 - Models;
 - Business logic;
 - Web-app;
 
-Models are stored in "Models" folder (app/Models). 
-Business logic incldes 3 files:
-- QueueServices - control of queue;
-- LoginController - class for getting userdata by login and password;
-- Models logic - set of classes for adding and deleting models.
-- Validators - classes for data validation.
+### Models
 
-#### Models:
+Models are used to simplify work with the database. Each model represents particular table from the database.
+Models are stored in Models folder (./app/Models). In this folder you can find next classes:
+- Admin;
+- Monitor;
+- Operator;
+- Workplace;
+- AdminLoginData, OperatorLoginData, MonitorLoginData;
+To see how to work with thid models you can read documentation of peewee library (see References).
+You can add your own models easily - you should simply inherit it from BaseModel class. BaseModel describes a set of functions that are needed to be in each model - save(), delete(), get() and update(). Also BaseModel determines the database with which models would work, so in case of adding your own models change the link to a database here.
+You can place any data for setting up your models into file setup.py.
 
-Models were written using peewee ORM, but you can create your own models without changing other parts of the app.
-To create own models, they should be inherited from `AbstractModel` class. This is an abstract class where defined all method that should contain a Model class. If custom models would not be inherited from AbstractClass, then it would be raised Exception and app would not work.
-Path to a database and tablenames from where Models get data are written in file `"setup.py"`. You can easily create own database and set link to it in this file.
+### Business logic
 
-#### QueueServices:
+Business logic (or BL) is a set of more abstract functions over the Models. 
+In BL you can find main class for managing queue - QueueServices. This class represents the queue and contains next methods:
+- addCustomer(id) - adding new customer to the queue. If there are some workplaces where operators are free, then new customer is being attached to the free operator.
+-  getWorkplaces() - returns all data about workplaces;
+-  getListOfCustomers() - returns full list of customers.
+-  changeWorkplaceState(workplaceid, state) - change the state of particular workplace to another. This method changes the state and assigns a new customer to the workplace if operator that works in this workplace is free.
+Methods in QueueServices could throw InvalidDatatypeException in case of invalid datatype of the parameter and WorkplaceWasNotFound is case if we are trying to work with an absent workplace. 
 
-In `QueueServices` you can find all necessary method to work with queue. 
-It consist of list of customers (it is actually a queue) and list of workspaces, to each workplace attached a customer.
+Customers are described in eponymous class, the only field that the customer has is an id.
 
-#### ModelsLogic:
+LoginController is the class that has ony 1 method - getUser() - it returns the data about user using his login and password. 
 
-`ModelsLogic` is needed to check data before its adding. Actually classes from this file are not used in this particular program.
-In this file you can find 2 abstract classes: `ModelAdder` and `ModelRemover`, each class for adding data or its deletion should be inherited from those classes.
-In this file you can find class `PeeweeModelAdder`, it is needed to validate data before its adding to a database. Class for deleting objects from a database could be also implemented.
+In BL also implemented some additional logic for working with models for validating data before its adding into db. For it was created the class ModelAdder - an abstract class that has one method - add(). If you want to add your own logic of adding data into db using models, you should inherit your class from ModelAdder. There was implemented the class PeeweeModelAdder inherited from ModelAdder. This class provides validation of data bafore its adding into database. For future, it was created class ModelDeleter - an abstract class that describes the logic of removing data from db in BL layer.
 
-#### Validators:
+The class in which all necessary functions could be found to work with queue is BusinessLogic. All methods from all classes were added into this class. This class is an only class needed to work with the full system.
 
-In `ModelsLogic` data validation is used, it is needed to check correctness of the data. 
-All validators should be inherited from `ValidatorModel` class.
-There are several validators implemented: validator for email, name, surname and id. To validate all values from a particular list `ValuesVaidator` class is used. It is needed to valuidate data from a whole model, not just one field. 
-`Own validation`: To implement yout own data validation classes, they need to be inherited from ValidatorModel class. Also name of the value that is validated by written class and the classname itself should be added to `validationsetup`.
+### The app
 
-#### LoginController:
-
-The task of this class - to get data about particular user from login and password.
-
-#### Facade:
-
-All methods from all classes described above are added to 1 class - `BusinessLogic`. This class is needed to make it simpler to work with logic of the app on its upper layers.
+Using BL was created the web-app using Flask, Flask-Login and Flask-Admin. If file app.py the app on Flask is fully given - here you can find some configuration of Superuser page and all controllers. Superuser data is given in a file superuser_data.py - add your own password hashed with md5 before start sorking with an app. Good luck!
